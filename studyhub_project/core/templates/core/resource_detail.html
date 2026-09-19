@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}{{ resource.title }}{% endblock %}
+{% block content %}
+<p><a href="{% url 'core:resource_list' %}">&larr; Back to resources</a></p>
+
+<h2>{{ resource.title }}</h2>
+<p class="meta">
+    <span class="badge">
+        {% if resource.type == 'Article' %}📄{% elif resource.type == 'Video' %}🎬{% else %}🔗{% endif %}
+        {{ resource.type }}
+    </span>
+</p>
+
+<div class="tabs">
+    <a href="?tab=details" class="{% if tab == 'details' %}active{% endif %}">Details</a>
+    <a href="?tab=source" class="{% if tab == 'source' %}active{% endif %}">Source</a>
+</div>
+
+<div class="tab-content">
+    {% if tab == 'details' %}
+        <p>{{ resource.description }}</p>
+    {% elif tab == 'source' %}
+        <p><a href="{{ resource.url }}" target="_blank" rel="noopener">{{ resource.url }}</a></p>
+    {% endif %}
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    {% if is_favorite %}
+        <p class="favorite-status">This resource is in your favorites.</p>
+    {% else %}
+        <button type="submit">Add to Favorites</button>
+    {% endif %}
+</form>
+{% endblock %}

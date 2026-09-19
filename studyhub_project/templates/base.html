@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}StudyHub{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% if theme == 'dark' %}
+        <link rel="stylesheet" href="{% static 'css/dark.css' %}">
+    {% else %}
+        <link rel="stylesheet" href="{% static 'css/light.css' %}">
+    {% endif %}
+</head>
+<body class="{{ theme|default:'light' }}-theme">
+    <header class="site-header">
+        <div class="brand">
+            <img src="{% static 'images/logo.png' %}" alt="StudyHub logo" class="logo">
+            <span class="brand-name">StudyHub</span>
+        </div>
+        <nav class="navbar">
+            <a href="{% url 'core:home' %}">Home</a>
+            <a href="{% url 'core:resource_list' %}">Resources</a>
+            <a href="{% url 'core:favorites' %}">Favorites</a>
+            <a href="{% url 'core:preferences' %}">Preferences</a>
+            <a href="{% url 'core:feedback' %}">Feedback</a>
+        </nav>
+    </header>
+
+    <main class="content">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 StudyHub — Learning Resources Portal</p>
+    </footer>
+</body>
+</html>

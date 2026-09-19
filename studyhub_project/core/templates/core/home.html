@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}StudyHub — Home{% endblock %}
+{% block content %}
+<section class="hero">
+    <h1>Welcome to <span class="accent-text">StudyHub</span></h1>
+    <p class="hero-subtitle">Browse curated learning resources, save your favorites, and customize your experience.</p>
+    <a href="{% url 'core:resource_list' %}" class="btn">Browse Resources &rarr;</a>
+</section>
+{% endblock %}

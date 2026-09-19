@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Preferences{% endblock %}
+{% block content %}
+<h2>Preferences</h2>
+<p>Current theme: <strong>{{ theme|title }}</strong></p>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="theme" value="light">
+    <button type="submit" {% if theme == 'light' %}disabled{% endif %}>Switch to Light</button>
+</form>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="theme" value="dark">
+    <button type="submit" {% if theme == 'dark' %}disabled{% endif %}>Switch to Dark</button>
+</form>
+{% endblock %}

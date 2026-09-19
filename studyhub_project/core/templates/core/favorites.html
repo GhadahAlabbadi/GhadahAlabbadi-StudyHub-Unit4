@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Favorites{% endblock %}
+{% block content %}
+<h2>Your Favorites</h2>
+
+{% if resources %}
+    <ul class="resource-list">
+        {% for resource in resources %}
+            <li class="resource-item">
+                <a href="{% url 'core:resource_detail' resource.id %}">{{ resource.title }}</a>
+                <span class="badge">
+                    {% if resource.type == 'Article' %}📄{% elif resource.type == 'Video' %}🎬{% else %}🔗{% endif %}
+                    {{ resource.type }}
+                </span>
+                <form method="post" class="inline-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="remove_id" value="{{ resource.id }}">
+                    <button type="submit">Remove</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p class="empty-state">You haven't added any favorites yet.</p>
+{% endif %}
+{% endblock %}

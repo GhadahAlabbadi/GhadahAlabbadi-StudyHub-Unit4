@@ -1,0 +1,21 @@
+:root {
+    --bg: #12131c;
+    --surface: #1b1d2b;
+    --text: #eef0fa;
+    --text-muted: #9ca3c4;
+    --accent: #8b7ffb;
+    --accent-2: #5fd0ff;
+    --accent-hover: #a79bfd;
+    --gradient-brand: linear-gradient(135deg, var(--accent), var(--accent-2));
+    --danger: #ff6b74;
+    --border: #2c2f45;
+    --header-bg: #0d0e16;
+    --header-text: #eef0fa;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+    --shadow-hover: 0 10px 30px rgba(139, 127, 251, 0.3);
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+}

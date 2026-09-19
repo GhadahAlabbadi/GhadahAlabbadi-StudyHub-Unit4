@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Resources{% endblock %}
+{% block content %}
+<h2>Learning Resources</h2>
+
+{% if resources %}
+    <ul class="resource-list">
+        {% for resource in resources %}
+            <li class="resource-item">
+                <a href="{% url 'core:resource_detail' resource.id %}">{{ resource.title }}</a>
+                <span class="badge">
+                    {% if resource.type == 'Article' %}📄{% elif resource.type == 'Video' %}🎬{% else %}🔗{% endif %}
+                    {{ resource.type }}
+                </span>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p class="empty-state">No resources available yet.</p>
+{% endif %}
+{% endblock %}
