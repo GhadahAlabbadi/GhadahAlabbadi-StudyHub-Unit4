@@ -1,3 +1,4 @@
+from django.core.files.storage import default_storage
 from django.http import Http404
 from django.shortcuts import render, redirect
 
@@ -136,8 +137,14 @@ def preferences(request):
 
 def feedback(request):
     if request.method == "POST":
-        form = FeedbackForm(request.POST)
+        form = FeedbackForm(request.POST, request.FILES)
         if form.is_valid():
+            attachment = form.cleaned_data.get("attachment")
+            attachment_url = None
+            if attachment:
+                saved_path = default_storage.save(f"feedback_attachments/{attachment.name}", attachment)
+                attachment_url = default_storage.url(saved_path)
+            request.session["last_feedback_attachment"] = attachment_url
             return redirect("core:feedback_thanks")
         for field_name in form.errors:
             form.fields[field_name].widget.attrs["class"] = "is-invalid"
@@ -151,4 +158,8 @@ def feedback(request):
 
 
 def feedback_thanks(request):
-    return render(request, "core/feedback_thanks.html", {"theme": get_theme(request)})
+    attachment_url = request.session.pop("last_feedback_attachment", None)
+    return render(request, "core/feedback_thanks.html", {
+        "theme": get_theme(request),
+        "attachment_url": attachment_url,
+    })

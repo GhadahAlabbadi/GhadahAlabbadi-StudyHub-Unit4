@@ -3,7 +3,7 @@
 {% block content %}
 <h2>Feedback</h2>
 
-<form method="post" novalidate>
+<form method="post" enctype="multipart/form-data" novalidate>
     {% csrf_token %}
 
     <div class="form-group">
@@ -35,6 +35,14 @@
         {{ form.rating }}
         {% if form.rating.errors %}
             <p class="field-error">{{ form.rating.errors.0 }}</p>
+        {% endif %}
+    </div>
+    <div class="form-group">
+        <label for="{{ form.attachment.id_for_label }}">Attachment (optional)</label>
+        {{ form.attachment }}
+        <p class="field-hint">{{ form.attachment.help_text }}</p>
+        {% if form.attachment.errors %}
+        <p class="field-error">{{ form.attachment.errors.0 }}</p>
         {% endif %}
     </div>
 

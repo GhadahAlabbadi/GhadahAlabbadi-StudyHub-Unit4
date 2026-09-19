@@ -3,5 +3,11 @@
 {% block content %}
 <h2>Thank You!</h2>
 <p>Your feedback has been received.</p>
+{% if attachment_url %}
+    <p class="favorite-status">
+        Attachment uploaded:
+        <a href="{{ attachment_url }}" target="_blank" rel="noopener">{{ attachment_url }}</a>
+    </p>
+{% endif %}
 <p><a href="{% url 'core:home' %}">&larr; Back to home</a></p>
 {% endblock %}
